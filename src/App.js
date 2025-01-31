@@ -1,22 +1,36 @@
 import './App.css';
 import {useState} from 'react';
 
-function MyButton(props) {
-    const [count, SetCount] = useState(0);
-    function handleClick() {
-        SetCount(count +1)
-    }
-  return (
-      <button onClick={handleClick}>I'm a button {count}</button>
-  );
+function createTodos() {
+    const Todos = [];
+
+    return Todos;
 }
 
-export default function MyApp() {
-  return (
-      <div>
-        <h1>Welcome to my app</h1>
-        <MyButton />
-      </div>
-  );
+function Supr(id) {
+    TodoList = TodoList.filter(i => i.id !== id);
+    return TodoList;
 }
 
+export default function TodoList() {
+    const [todos, setTodos] = useState(createTodos);
+    const [text, setText] = useState('');
+
+    return (
+        <>
+            <input
+                onChange={e => setText(e.target.value)}
+            />
+            <button onClick={() => {
+                setTodos([...todos, text]);
+            }}>Add</button>
+            <ul>
+                {todos.map((item, id) => (
+                    <li key={id}>
+                        {text} <button onClick={() => Supr(id)}>Suprimer</button>
+                    </li>
+                ))}
+            </ul>
+        </>
+    );
+}
