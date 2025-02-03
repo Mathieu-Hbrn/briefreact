@@ -1,33 +1,36 @@
 import './App.css';
 import {useState} from 'react';
 
-function createTodos() {
-    const Todos = [];
 
-    return Todos;
-}
 
-function Supr(id) {
-    TodoList = TodoList.filter(i => i.id !== id);
-    return TodoList;
-}
 
-export default function TodoList() {
-    const [todos, setTodos] = useState(createTodos);
+export default function App() {
+    const [todos, setTodos] = useState([]);
     const [text, setText] = useState('');
+
+    function createTodos() {
+        const newTodos = [];
+        return newTodos;
+    }
+
+    function Supr(id) {
+        setTodos(todos.filter((_item, index) => index !== id));
+    }
 
     return (
         <>
             <input
+                value={text}
                 onChange={e => setText(e.target.value)}
             />
             <button onClick={() => {
                 setTodos([...todos, text]);
+                setText('')
             }}>Add</button>
             <ul>
                 {todos.map((item, id) => (
                     <li key={id}>
-                        {text} <button onClick={() => Supr(id)}>Suprimer</button>
+                        {item} <button onClick={() => Supr(id)}>Suprimer</button>
                     </li>
                 ))}
             </ul>
